@@ -1,14 +1,28 @@
-body {
-        background: green;
+.footer {
+    color: pink;
+    width: 100%;
+    height: 10px;
+    background-color: black;
+    margin: 0 auto;
+    position: fixed;
+	right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 1rem;
+	margin: 0 0 0 -32px;
+	text-align: center;
+    }
 
-
-
+.hub{
+    background-color: #F7991D;
+    display: inline-block;
+    color: black;
+    border: 2px solid;
+    border-radius: 5px;
+    padding: 2px;
 }
 
-div {
-    padding-top: 50px;
-    color: yellow;
-
-
-
+.header {
+    background-color: black;
+    color: white;
 }
