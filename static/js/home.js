@@ -1,1 +1,0 @@
-var example = prompt("mukodj!!!!???: ")
