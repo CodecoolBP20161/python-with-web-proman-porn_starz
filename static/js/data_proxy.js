@@ -3,37 +3,40 @@ var Proxy = {
     type: 'localstorage',
     get_data: function (name) {
         if (Proxy.type === 'localstorage') {
-                return JSON.parse(localStorage.getItem(name));
+            if (name !== undefined){
+                return JSON.parse(localStorage.getItem('Boards')[name]);
             }
+            else{
+                return JSON.parse(localStorage.getItem('Boards'));
+            }
+        }
         else if (Proxy.type === 'database') {}
     },
     update_data: function (name, newValue, key) {
-
         if (Proxy.type === 'localstorage') {
-            console.log('name:', name, 'newValue:', newValue, 'key', key);
-                if (key != undefined) {
-                    var data = JSON.parse(localStorage.getItem(name));
-                    data[key] = newValue;
-                    localStorage.setItem(name, JSON.stringify(data))
-                }
+            var data = JSON.parse(localStorage.getItem('Boards'));
+            if (key != undefined) {
+                    data[name][key] = newValue;
+            }
             else{
-                    localStorage.setItem(name, JSON.stringify(newValue))
-                }
+                    data[name] = newValue
+            }
+            localStorage.setItem('Boards', JSON.stringify(data))
         }
         else if (Proxy.type === 'database') {}
         },
     remove_data: function (name, key) {
 
         if (Proxy.type === 'localstorage') {
-             console.log('name:', newValue, 'key', key);
+            var data = JSON.parse(localStorage.getItem('Boards'));
             if (key !== undefined) {
-                var data = JSON.parse(localStorage.getItem(name));
-                delete data[key];
-                localStorage.setItem(name, JSON.stringify(data));
+                delete data[name][key];
             }
-                else{
-                    localStorage.removeItem(name)
-                }
+                else {
+                delete data[name];
+            }
+            localStorage.setItem('Boards', JSON.stringify(data))
+                
             }
         else if (Proxy.type === 'database') {
         }
