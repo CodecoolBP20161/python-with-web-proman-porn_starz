@@ -7,6 +7,7 @@ var initialLoading = function() {
     titles.forEach(function (item, index, array) {
         var board = document.createElement('li');
         board.setAttribute('onclick', 'open_board()');
+        board.setAttribute('class', 'test');
         board.appendChild(document.createTextNode(item));
         list.appendChild(board);
         console.log(item)
