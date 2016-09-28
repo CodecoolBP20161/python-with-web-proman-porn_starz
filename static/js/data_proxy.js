@@ -1,16 +1,10 @@
 
 var Proxy = {
     type: 'localstorage',
-    get_data: function (name, key) {
+    get_data: function (name) {
         if (Proxy.type === 'localstorage') {
-            console.log('name:', name, 'key', key);
-            if (key != undefined) {
-                return JSON.parse(localStorage.getItem(name))[key];
+                return JSON.parse(localStorage.getItem(name));
             }
-            else {
-                return JSON.parse(localStorage.getItem(name))
-            }
-        }
         else if (Proxy.type === 'database') {}
     },
     update_data: function (name, newValue, key) {
