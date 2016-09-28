@@ -3,14 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <script type="text/javascript" src="/static/js/home.js"></script>
-    <link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}">
+    <script type="text/javascript" src="/static/js/localstore.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='test.css') }}">
 </head>
-<body>
+<body onload="load_inputs()">
+
+    <!-- <input type="text" id="1" >
+    <input type="button" value="save" onclick="save_inputs()" >
+    <input type="button" value="remove" onclick="remove_inputs()" > -->
+
+
     <ul>
 
             <li>
-                <div class="board">Board1</div>
+                <div class="board">"localStorage.text"</div>
             </li>
             <li>
                 <div class="board">Board2</div>
