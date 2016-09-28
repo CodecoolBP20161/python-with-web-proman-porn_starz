@@ -6,7 +6,7 @@ app.config.from_object(__name__)
 
 @app.route('/', methods=['GET', 'POST'])
 def start():
-    return render_template('test.html')
+    return render_template('home.html')
 
 if '__main__' == __name__:
     app.run(debug=True)
