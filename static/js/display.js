@@ -1,23 +1,34 @@
 
 var initialLoading = function() {
-    // This line will be replaced by data loader function from the proxy, we will need id as well
-    var titles = ['Project1', 'Project2', 'Project3', 'Project4', 'Project5'];
-    // ---------------------------------------------------------------------------------------
-    var list = document.createElement('ul');
-    titles.forEach(function (item, index, array) {
-        var board = document.createElement('li');
-        board.setAttribute('onclick', 'open_board()');
-        board.setAttribute('class', 'board');
-        board.appendChild(document.createTextNode(item));
-        list.appendChild(board);
-        console.log(item)
-    });
-    document.body.appendChild(list);
+    var Boards = {
+        titles: ['TW project', 'SI assignments', 'Shopping'],
+        TWproject: {
+            tasks: []
+        },
+        SIassignments:{
+            tasks: []
+        },
+        Shopping:{
+            tasks: []
+        }
+    };
+    Proxy.update_data('Boards', Boards);
+    var titles = Proxy.get_data('Boards', 'titles');
+    console.log('titles:', titles);
+        var list = document.createElement('ul');
+        titles.forEach(function (title) {
+            var board = document.createElement('li');
+            board.setAttribute('onclick', 'open_board()');
+            board.setAttribute('class', 'board');
+            board.appendChild(document.createTextNode(title));
+            list.appendChild(board);
+            console.log(title)
+        });
+        document.body.appendChild(list);
 };
 
 var open_board = function(id){
-    
-    
+
 };
     
 
