@@ -8,21 +8,27 @@
 </head>
 
 <body>
-
-    <img class='displayed' src="../static/logo.jpg" /><br><br>
-
-    <ul id="boards">
-        <li><a href="#">Board1</a></li>
-        <li><a href="#">Board2</a></li>
-        <li><a href="#">Board3</a></li>
-        <li><a href="#">Board4</a></li>
-        <li><a href="#">Board5</a></li>
-    </ul>
-
-    <div class="createbtn">
-        Add
+    <img class="displayed" src="../static/logo.jpg"><br><br>
+    <script type="text/javascript" src="/static/js/data_proxy.js"></script>
+    <script type="text/javascript" src="/static/js/display.js"></script>
+    <div class="boards" name="boards">
+        <ul id="boards">
+            <li><a onclick="open_board()" class="board" id="ASD1">ASD1</a></li>
+            <li><a onclick="open_board()" class="board" id="asd2">asd2</a></li>
+            <li><a onclick="open_board()" class="board" id="asd3">asd3</a></li>
+            <li><a onclick="open_board()" class="board" id="asd4">asd4</a></li>
+            <li><a onclick="open_board()" class="board" id="asdf">asdf</a></li>
+        </ul>
     </div>
-
+    <ul id="boards">
+        <li><a class="createBtn" onmouseover="this.children[0].style.display ='block';"
+               onmouseout="this.children[0].style.display = 'none';">Create New
+            <div style="display: none;"><input placeholder="board title" required="required" id="newBoard">
+                <button onclick="create_board()">Save</button>
+            </div>
+        </a></li>
+    </ul>
     <div class="footer">a Porn<div class="hub">starZ</div> production | Codecool 2016</div>
+
 </body>
 </html>
