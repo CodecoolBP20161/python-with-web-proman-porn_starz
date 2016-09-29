@@ -13,22 +13,34 @@ var create_board = function() {
         var list = document.getElementById('boards');
         var newBoard = document.createElement('li');
         var newAnchor = document.createElement('a');
-        newAnchor.setAttribute('onclick', 'open_board()');
         newAnchor.setAttribute('class', 'board');
         newAnchor.setAttribute('id', new_title.value);
+        newAnchor.addEventListener('click', function(){open_board(this)});
         newAnchor.appendChild(document.createTextNode(new_title.value));
         newBoard.appendChild(newAnchor);
         list.appendChild(newBoard);
-    }
+     }
     new_title.value = '';
 };
-var open_board = function(){
-console.log('open_board')
+
+var open_board = function(obj){
 };
 
 var initialLoading = function() {
     // Creating example Data -------------------------------------------------
-       // var Boards = {};
+       // var Boards = {
+//         'B1': {
+//             'New': [],
+//             'In progress': [],
+//             'Reviewing': [],
+//             'Done': []
+//     },
+//         'B2': {
+//             'New': [],
+//             'In progress': [],
+//             'Reviewing': [],
+//             'Done': []
+//         };
     //localStorage.setItem('Boards', JSON.stringify(Boards));
     //---------------------------------------------------------------------------
     var boards = document.createElement('div');
@@ -39,9 +51,9 @@ var initialLoading = function() {
         for (var key in Proxy.get_data()) {
             var board = document.createElement('li');
             var anchor = document.createElement('a');
-            anchor.setAttribute('onclick', 'open_board()');
             anchor.setAttribute('class', 'board');
             anchor.setAttribute('id', key);
+            anchor.addEventListener('click', function(){open_board(this)});
             anchor.appendChild(document.createTextNode(key));
             board.appendChild(anchor);
 
