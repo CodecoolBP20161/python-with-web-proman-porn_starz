@@ -28,9 +28,7 @@ console.log('open_board')
 
 var initialLoading = function() {
     // Creating example Data -------------------------------------------------
-       // var Boards = {
-        //};
-
+       // var Boards = {};
     //localStorage.setItem('Boards', JSON.stringify(Boards));
     //---------------------------------------------------------------------------
     var boards = document.createElement('div');
@@ -62,14 +60,17 @@ var initialLoading = function() {
 
     var titleinputdiv = document.createElement('div');
     titleinputdiv.style.display = 'none';
+    titleinputdiv.setAttribute('class', 'inputDiv');
 
     var inputline = document.createElement('input');
     inputline.setAttribute('placeholder', 'board title');
     inputline.setAttribute('required', 'required');
     inputline.setAttribute('id', 'newBoard');
+    inputline.setAttribute('class', 'addBoardInput');
 
     var savebutton = document.createElement('button');
     savebutton.setAttribute('onclick', 'create_board()');
+    savebutton.setAttribute('class', 'addBoardInput');
     savebutton.appendChild(document.createTextNode('Save'));
 
 
