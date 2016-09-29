@@ -10,12 +10,14 @@ var create_board = function() {
     }
     else {
         Proxy.update_data(new_title.value, []);
-        var list = document.getElementById('boardlist');
+        var list = document.getElementById('boards');
         var newBoard = document.createElement('li');
-        newBoard.setAttribute('onclick', 'open_board()');
-        newBoard.setAttribute('class', 'board');
-        newBoard.setAttribute('id', new_title.value);
-        newBoard.appendChild(document.createTextNode(new_title.value));
+        var newAnchor = document.createElement('a');
+        newAnchor.setAttribute('onclick', 'open_board()');
+        newAnchor.setAttribute('class', 'board');
+        newAnchor.setAttribute('id', new_title.value);
+        newAnchor.appendChild(document.createTextNode(new_title.value));
+        newBoard.appendChild(newAnchor);
         list.appendChild(newBoard);
     }
     new_title.value = '';
@@ -35,13 +37,15 @@ var initialLoading = function() {
     boards.setAttribute('class', 'boards');
     boards.setAttribute('name', 'boards');
     var list = document.createElement('ul');
-    list.setAttribute('id', 'boardlist');
+    list.setAttribute('id', 'boards');
         for (var key in Proxy.get_data()) {
             var board = document.createElement('li');
-            board.setAttribute('onclick', 'open_board()');
-            board.setAttribute('class', 'board');
-            board.setAttribute('id', key);
-            board.appendChild(document.createTextNode(key));
+            var anchor = document.createElement('a');
+            anchor.setAttribute('onclick', 'open_board()');
+            anchor.setAttribute('class', 'board');
+            anchor.setAttribute('id', key);
+            anchor.appendChild(document.createTextNode(key));
+            board.appendChild(anchor);
 
             list.appendChild(board);
         }
@@ -49,27 +53,33 @@ var initialLoading = function() {
         document.body.appendChild(boards);
 
     // Creating Create button
-        var createbutton = document.createElement('div');
-        createbutton.setAttribute('class', 'createbtn');
-        createbutton.appendChild(document.createTextNode('Create New'));
-    
-        var titleinputdiv = document.createElement('div');
-        titleinputdiv.style.display = 'none';
-    
-        var inputline = document.createElement('input');
-        inputline.setAttribute('placeholder', 'board title');
-        inputline.setAttribute('required', 'required');
-        inputline.setAttribute('id', 'newBoard');
-    
-        var savebutton = document.createElement('button');
-        savebutton.setAttribute('onclick', 'create_board()');
-        savebutton.appendChild(document.createTextNode('Save'));
-    
-        titleinputdiv.appendChild(savebutton);
-        titleinputdiv.appendChild(inputline);
-        createbutton.appendChild(titleinputdiv);
-        createbutton.setAttribute('onmouseover', 'this.children[0].style.display = "block";');
-        createbutton.setAttribute('onmouseout', 'this.children[0].style.display = "none";');
-        document.body.appendChild(createbutton);
+    var createList = document.createElement('ul');
+    createList.setAttribute('id', 'boards');
+    var createElement = document.createElement('li');
+    var createButton = document.createElement('a');
+    createButton.setAttribute('class', 'createBtn');
+    createButton.appendChild(document.createTextNode('Create New'));
+
+    var titleinputdiv = document.createElement('div');
+    titleinputdiv.style.display = 'none';
+
+    var inputline = document.createElement('input');
+    inputline.setAttribute('placeholder', 'board title');
+    inputline.setAttribute('required', 'required');
+    inputline.setAttribute('id', 'newBoard');
+
+    var savebutton = document.createElement('button');
+    savebutton.setAttribute('onclick', 'create_board()');
+    savebutton.appendChild(document.createTextNode('Save'));
+
+
+    titleinputdiv.appendChild(inputline);
+    titleinputdiv.appendChild(savebutton);
+    createButton.appendChild(titleinputdiv);
+    createButton.setAttribute('onmouseover', 'this.children[0].style.display = "block";');
+    createButton.setAttribute('onmouseout', 'this.children[0].style.display = "none";');
+    createList.appendChild(createElement);
+    createElement.appendChild(createButton);
+    document.body.appendChild(createList);
 };
 initialLoading();
