@@ -20,10 +20,10 @@ var Proxy = {
         if (Proxy.type === 'localstorage') {
             if (boardName !== undefined){
                 if (status !== undefined) {
-                    return JSON.parse(localStorage.getItem('Boards')[boardName][status]);
+                    return JSON.parse(localStorage.getItem('Boards'))[boardName][status];
                 }
                 else{
-                    return JSON.parse(localStorage.getItem('Boards')[boardName]);
+                    return JSON.parse(localStorage.getItem('Boards'))[boardName];
                 }
             }
             else{
@@ -36,7 +36,7 @@ var Proxy = {
         if (Proxy.type === 'localstorage') {
             var data = JSON.parse(localStorage.getItem('Boards'));
             if (status != undefined) {
-                    data[boardName][status] = newValue;
+                    data[boardName][status].push(newValue);
             }
             else{
                     data[boardName] = newValue
@@ -45,14 +45,17 @@ var Proxy = {
         }
         else if (Proxy.type === 'database') {}
         },
-    remove_data: function (boardName, status) {
-
+    remove_data: function (boardName, status, value) {
         if (Proxy.type === 'localstorage') {
             var data = JSON.parse(localStorage.getItem('Boards'));
-            if (status !== undefined) {
-                delete data[boardName][status];
+            if (status !== undefined && value !== undefined) {
+                console.log(data[boardName][status]);
+                var index = data[boardName][status].indexOf(value);
+                if (index > -1) {
+                    data[boardName][status].splice(index, 1);
+                }
             }
-                else {
+            else {
                 delete data[boardName];
             }
             localStorage.setItem('Boards', JSON.stringify(data))
