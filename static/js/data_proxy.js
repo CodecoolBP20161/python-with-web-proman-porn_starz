@@ -34,7 +34,9 @@ var Proxy = {
     },
     update_data: function (boardName, newValue, status) {
         if (Proxy.type === 'localstorage') {
+            console.log(boardName, newValue, status);
             var data = JSON.parse(localStorage.getItem('Boards'));
+            console.log(data);
             if (status != undefined) {
                     data[boardName][status].push(newValue);
             }
