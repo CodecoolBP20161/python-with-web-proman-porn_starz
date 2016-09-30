@@ -13,15 +13,16 @@ var create_board = function() {
                 'Reviewing': [],
                 'Done': []
         });
-        var list = document.getElementById('boards');
+        var list = document.getElementsByTagName('ul');
+        console.log(list);
         var newBoard = document.createElement('li');
         var newAnchor = document.createElement('a');
         newAnchor.setAttribute('class', 'board');
         newAnchor.setAttribute('id', new_title.value.toLowerCase());
         newAnchor.addEventListener('click', function(){open_board(this)});
-        newAnchor.appendChild(document.createTextNode(new_title.value.toUpperCase()));
+        newAnchor.appendChild(document.createTextNode(new_title.value));
         newBoard.appendChild(newAnchor);
-        list.appendChild(newBoard);
+        list[0].appendChild(newBoard);
      }
     new_title.value = '';
 };
@@ -33,7 +34,7 @@ var open_board = function(obj){
     board.innerHTML = '';
     var createbtn = document.getElementsByName('createBtn');
     createbtn[0].innerHTML = '';
-    //---------------------------------------------------------
+//---------------------------------------------------------
 
     //Creating HEADER which shows the board's name
     boardHeader = document.createElement('h1');
@@ -52,10 +53,11 @@ var open_board = function(obj){
     backbutton.appendChild(document.createTextNode('Back'));
     document.body.appendChild(backbutton);
 
+
     // Creating HTML DOM
     var statusList = document.createElement('ul');
     statusList.className = 'statusList';
-    console.log(obj.id);
+    statusList.id = "statusList";
     for (var status in Proxy.get_data(obj.id)){
         var statusElement = document.createElement('div');
         statusElement.className = 'statusListElement';
@@ -68,6 +70,7 @@ var open_board = function(obj){
         statusElement.appendChild(statusTitle);
 
         var taskList = document.createElement('ul');
+        taskList.id = "taskList";
         taskList.className = 'taskList';
         taskList.addEventListener('drop', function(){drop(event,this)});
         taskList.addEventListener('dragover', function(){allowDrop(event,this)});
@@ -96,6 +99,7 @@ var drag = function(event){
     event.dataTransfer.setData("id", event.target.id);
     event.dataTransfer.setData("oldStatus", event.target.parentNode.parentNode.id);
 };
+
 var drop = function(event){
     event.preventDefault();
     var taskID = event.dataTransfer.getData("id");
@@ -131,6 +135,24 @@ var initialLoading = function() {
         var backBtn = document.getElementById("backbutton");
         backBtn.parentNode.removeChild(backBtn);
     };
+
+    if (document.getElementById("statusList") !== null)
+    {
+        var statusLST = document.getElementById("statusList")
+        statusLST.parentNode.removeChild(statusLST);
+    };
+
+    if (document.getElementById("taskList") !== null)
+    {
+        var taskLST = document.getElementById("taskList")
+        taskLST.parentNode.removeChild(taskLST);
+    };
+
+
+
+
+
+
     // Creating example Data -------------------------------------------------
        // var Boards = {
 //         'Board1': {
@@ -146,6 +168,12 @@ var initialLoading = function() {
 //             'Done': []
 //         };
     //localStorage.setItem('Boards', JSON.stringify(Boards));
+    console.log(Proxy.get_data());
+    // Creating basic data structure -------------------------------------------------
+    if (Proxy.get_data() === null) {
+        var Boards = {};
+        localStorage.setItem('Boards', JSON.stringify(Boards));
+    }
     //---------------------------------------------------------------------------
     var boards = document.createElement('div');
     boards.setAttribute('class', 'boards');
