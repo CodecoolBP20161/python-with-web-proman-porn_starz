@@ -78,7 +78,56 @@ var open_board = function(obj){
         statusElement.appendChild(taskList);
         statusList.appendChild(statusElement);
 
-    }
+    }var createList = document.createElement('ul');
+    createList.setAttribute('id', 'boards');
+    createList.setAttribute('name', 'createBtn');
+    var createElement = document.createElement('li');
+    var createButton = document.createElement('a');
+    createButton.setAttribute('class', 'createBtn');
+    createButton.appendChild(document.createTextNode('Create New'));
+
+    var titleinputdiv = document.createElement('div');
+    titleinputdiv.style.display = 'none';
+    titleinputdiv.setAttribute('class', 'inputDiv');
+
+    var inputline = document.createElement('input');
+    inputline.setAttribute('placeholder', 'task');
+    inputline.setAttribute('required', 'required');
+    inputline.setAttribute('id', 'newtask');
+    inputline.setAttribute('class', 'addTaskInput');
+
+    var savebutton = document.createElement('button');
+    savebutton.addEventListener('click', function(){
+        {
+            var boardName = boardHeader.innerHTML.toLowerCase();
+            var newValue = this.parentNode.childNodes[0].value;
+            board = Proxy.get_data(boardName);
+            for (var i in board) {
+                if (boardName[i].indexOf(newValue) > -1) {
+                    alert('Task name is already in use!')
+                }
+                else {
+                Proxy.update_data(boardName, newValue, 'New');
+                break;
+                }
+
+            }
+        }
+    });
+    savebutton.setAttribute('class', 'addBoardInput');
+    savebutton.appendChild(document.createTextNode('Save'));
+
+
+    titleinputdiv.appendChild(inputline);
+    titleinputdiv.appendChild(savebutton);
+    createButton.appendChild(titleinputdiv);
+    createButton.setAttribute('onmouseover', 'this.children[0].style.display = "block";');
+    createButton.setAttribute('onmouseout', 'this.children[0].style.display = "none";');
+    var ul = document.getElementsByName('createBtn')[0];
+    console.log(ul);
+        ul.appendChild(createElement);
+    createElement.appendChild(createButton);
+    ul.appendChild(createList);
     board.appendChild(statusList);
 //-----------------------------------------------------------------------------
     
@@ -103,7 +152,6 @@ var drop = function(event){
     }
     if (newStatus !== undefined){
         var oldStatus = event.dataTransfer.getData("oldStatus");
-        console.log('HEader:', boardHeader.innerHTML, 'old:', oldStatus, 'New:', newStatus);
         Proxy.remove_data(boardHeader.innerHTML.toLowerCase(), oldStatus, taskID);
         Proxy.update_data(boardHeader.innerHTML.toLowerCase(), taskID, newStatus);
     }
