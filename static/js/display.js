@@ -1,5 +1,3 @@
-
-
 var create_board = function() {
     var new_title = document.getElementById('newBoard');
     if (new_title.value === '') {
@@ -29,7 +27,7 @@ var create_board = function() {
 };
 
 var open_board = function(obj){
-    
+
     // Clear the html
     var board = document.getElementById('boards');
     board.innerHTML = '';
@@ -40,9 +38,19 @@ var open_board = function(obj){
     //Creating HEADER which shows the board's name
     boardHeader = document.createElement('h1');
     boardHeader.className = 'boardHeader';
+    boardHeader.id = "boardheader";
     boardHeader.appendChild(document.createTextNode(obj.id.toUpperCase()));
     board.appendChild(boardHeader);
 //--------------------------------------------------------------
+    //Create a Back button
+    console.log(3);
+    var backbutton = document.createElement('button');
+    backbutton.setAttribute('id', 'backbutton');
+    backbutton.setAttribute('name', 'backbutton');
+    backbutton.setAttribute('onclick', 'initialLoading()');
+    backbutton.setAttribute('class', 'backtohome');
+    backbutton.appendChild(document.createTextNode('Back'));
+    document.body.appendChild(backbutton);
 
     // Creating HTML DOM
     var statusList = document.createElement('ul');
@@ -58,7 +66,7 @@ var open_board = function(obj){
         statusTitle.addEventListener('dragover', function(){allowDrop(event,this)});
         statusTitle.appendChild(document.createTextNode(status));
         statusElement.appendChild(statusTitle);
-        
+
         var taskList = document.createElement('ul');
         taskList.className = 'taskList';
         taskList.addEventListener('drop', function(){drop(event,this)});
@@ -80,8 +88,8 @@ var open_board = function(obj){
     }
     board.appendChild(statusList);
 //-----------------------------------------------------------------------------
-    
-        
+
+
 };
 
 var drag = function(event){
@@ -112,6 +120,17 @@ var drop = function(event){
 };
 
 var initialLoading = function() {
+    document.getElementsByName("boards").innerHTML = "";
+    if (document.getElementById("boardheader") !== null)
+    {
+        var boardHDR = document.getElementById("boardheader")
+        boardHDR.parentNode.removeChild(boardHDR);
+    };
+    if (document.getElementById("backbutton") !== null)
+    {
+        var backBtn = document.getElementById("backbutton");
+        backBtn.parentNode.removeChild(backBtn);
+    };
     // Creating example Data -------------------------------------------------
        // var Boards = {
 //         'Board1': {
