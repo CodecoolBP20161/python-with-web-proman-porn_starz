@@ -59,7 +59,6 @@ var open_board = function(obj){
         statusTitle.addEventListener('dragover', function(){allowDrop(event,this)});
         statusTitle.appendChild(document.createTextNode(status));
         statusElement.appendChild(statusTitle);
-        statusElement.appendChild(back);
 
         var taskList = document.createElement('ul');
         taskList.className = 'taskList';
