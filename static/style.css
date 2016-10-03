@@ -90,9 +90,9 @@ ul#boards li a:hover {
 	border-bottom: solid 5px #1420ff;
 }
 .taskElement{
-	width: 90%;
-	background-color: cyan;
-	padding: 2%;
+	width: 100%;
+	background-color: chartreuse;
+	padding: 0;
 	border: double black 10px;
 }
 .taskList{
