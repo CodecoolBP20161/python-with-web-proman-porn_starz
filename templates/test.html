@@ -1,39 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <script type="text/javascript" src="/static/js/localstore.js"></script>
-    <link rel="stylesheet" href="{{ url_for('static', filename='test.css') }}">
+<meta charset="UTF-8">
+<title>Sexy boards</title>
+<script type="text/javascript" src="/static/js/home.js"></script>
+<link rel="stylesheet" href="../static/style.css">
 </head>
-<body onload="load_inputs()">
 
-    <!-- <input type="text" id="1" >
-    <input type="button" value="save" onclick="save_inputs()" >
-    <input type="button" value="remove" onclick="remove_inputs()" > -->
+<body>
+    <img class="displayed" src="../static/logo.jpg"><br><br>
+    <script type="text/javascript" src="/static/js/data_proxy.js"></script>
+    <script type="text/javascript" src="/static/js/display.js"></script>
+    <div class="boards" name="boards">
+        <ul id="boards">
+            <li><a onclick="open_board()" class="board" id="ASD1">ASD1</a></li>
+            <li><a onclick="open_board()" class="board" id="asd2">asd2</a></li>
+            <li><a onclick="open_board()" class="board" id="asd3">asd3</a></li>
+            <li><a onclick="open_board()" class="board" id="asd4">asd4</a></li>
+            <li><a onclick="open_board()" class="board" id="asdf">asdf</a></li>
+        </ul>
+    </div>
+    <ul id="boards">
+        <li><a class="createBtn" onmouseover="this.children[0].style.display ='block';"
+               onmouseout="this.children[0].style.display = 'none';">Create New
+            <div style="display: none;">
+                <input placeholder="board title" required="required" id="newBoard">
+                <button onclick="create_board()">Save</button>
+            </div>
+        </a></li>
+    </ul>
+    <div class="footer">a Porn<div class="hub">starZ</div> production | Codecool 2016</div>
 
-
-    <ul>
-
-            <li>
-                <div class="board">"localStorage.text"</div>
-            </li>
-            <li>
-                <div class="board">Board2</div>
-            </li>
-            <li>
-                <div class="board">Board3</div>
-            </li>
-            <li>
-                <div class="board">Board4</div>
-            </li>
-            <li>
-                <div class="board">Board5</div>
-            </li>
-            <li>
-            <div class="createbtn">Create New +</div>
-            </li>
-
-</ul>
 </body>
 </html>

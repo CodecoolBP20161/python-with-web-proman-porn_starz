@@ -1,0 +1,109 @@
+body{
+	width: 100%;
+	height: 100%;
+}
+ul#boards {
+	padding: 0;
+	margin: 0;
+	list-style: none;
+	float: left;
+	color: #fff;
+	background-color: #fff;
+	width: 100%;
+
+}
+
+ul#boards li {
+	display: inline;
+
+}
+
+ul#boards li a {
+	float: left;
+	width: 5em;
+	color: #fff;
+	background-color: #036;
+	padding: 50px;
+	text-decoration: none;
+	text-align: center;
+	border: 10px solid #fff;
+	border-radius:4px;
+}
+
+ul#boards li a:hover {
+	background-color: #369;
+	color: #fff;
+	transform: scale(1.1);
+	box-shadow:3px 5px 7px rgba(0,0,0,.7);;
+
+}
+
+.createbtn {
+
+}
+
+.footer {
+    color: pink;
+    width: 100%;
+    height: 10px;
+    background-color: black;
+    position: fixed;
+	right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 1rem;
+	margin: 0 0 0 -32px;
+	text-align: center;
+}
+.hub{
+    background-color: #F7991D;
+    display: inline-block;
+    color: black;
+    border: 2px solid;
+    border-radius: 5px;
+    padding: 2px;
+}
+.header {
+    background-color: black;
+    color: white;
+}
+.statusList{
+	border: solid #1420ff;
+	width: 100%;
+	height: 70%;
+	padding: 0;
+	border-width: 5px 5px  5px 5px ;
+}
+.statusListElement{
+	display: inline-table;
+	height: 150%;
+	text-align: center;
+	width: 24.42%;
+	border-left: solid #1420ff;
+	border-right: solid #1420ff;
+	border-width: 5px 5px 0 0;
+
+}
+.statusHeader{
+	padding-top: 0;
+	text-align: match-parent;
+	border-bottom: solid 5px #1420ff;
+}
+.taskElement{
+	width: 100%;
+	background-color: chartreuse;
+	padding: 0;
+	border: double black 10px;
+}
+.taskList{
+	width: 100%;
+	padding-left: 0;
+	height: 100%;
+}
+.boardHeader{
+	width: 100%;
+	text-align: center;
+	background: #1420ff;
+	color: white;
+
+}
