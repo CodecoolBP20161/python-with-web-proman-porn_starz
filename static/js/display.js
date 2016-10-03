@@ -9,7 +9,7 @@ var create_board = function () {
     else {
         Proxy.update_data(new_title, {
             'New': [],
-            'In progress': [],
+            'Inprogress': [],
             'Reviewing': [],
             'Done': []
         });
@@ -164,7 +164,7 @@ backbutton.setAttribute('name', 'backbutton');
 backbutton.setAttribute('onclick', 'initialLoading()');
 backbutton.setAttribute('class', 'backtohome');
 backbutton.appendChild(document.createTextNode('Back'));
-document.getElementsByClassName('boards')[0].appendChild(backbutton);
+ul.appendChild(backbutton);
     if (document.getElementsByClassName('boards').length > 1) {
         document.getElementsByClassName('boards')[1].parentNode.removeChild(document.getElementsByClassName('boards')[0])
     }
