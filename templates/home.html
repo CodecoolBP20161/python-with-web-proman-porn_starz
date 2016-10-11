@@ -1,16 +1,124 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <link rel="stylesheet" href="../static/style.css">
-    <title>
-        Proman-PornstarZ
-    </title>
-    <img class='displayed' src="../static/logo.jpg" /><br><br>
+    <meta charset="UTF-8">
+    <title>Trello</title>
+    <link
+    rel="stylesheet"
+    href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+    crossorigin="anonymous"
+    >
+    <link
+    rel="stylesheet"
+    href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+    integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+    crossorigin="anonymous"
+    >
+    <link rel="stylesheet" type= "text/css" href="{{ url_for('static', filename='trello.css')}}">
 </head>
 <body>
-
-    <script type="text/javascript" src="/static/js/data_proxy.js"></script>
-    <script type="text/javascript" src="/static/js/display.js"></script>
-    <div class="footer">a Porn<div class="hub">starZ</div> production | Codecool 2016</div>
+  <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="deleteModalLabel">Deleting a full project</h4>
+        </div>
+        <div class="modal-body">
+           <p>Be careful...</p>
+           <p>You are about to delete project <span id="toFill"></span> with all its components.</p>
+           <p>Are you sure you want to proceed?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" id="deleteabort">Back</button>
+          <button type="button" class="btn btn-danger" id="deleteconfirm">
+            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+            Delete
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+            <div class="fullblock">
+                <div class="well newwellbase">
+                    <p class="clickhere">Click here to create a new project</p>
+                </div>
+                <div class="well newwellcreate">
+                    <p class="newprojecttitle">New project's title:</p>
+                    <div class="newprojecttitle"><input type="text" id="new_project" maxlength="20"></div>
+                    <div class="newprojecttitle">
+                        <button type="button" class="btn btn-success btn-xs projectCreator" id='lofasz'>
+                            <span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span>
+                            Create
+                        </button>
+                    </div>
+                </div>
+                <ul class="list-group" id="projects">
+                </ul>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+            <div class="fullblock">
+              <div class="row off_board">
+                  <p id="hand"><span class="glyphicon glyphicon-hand-left" aria-hidden="true"></span></p>
+                  <p id="info"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></p>
+                  <p>Choose a project, or create a new one</p>
+              </div>
+                <div class="row on_board">
+                    <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 header">
+                        <div class="well stampwell">
+                            <p>
+                                Content:
+                                <input type="text" maxlength="20" id="newticketcontent">
+                                <button class="btn btn-success btn-xs" id="newticket">
+                                    <span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span>
+                                    to board
+                                </button>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 header">
+                        <div class="well stampwell">
+                            <p class="italics" id="stamptitle"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row on_board">
+                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 status_column">
+                        <div class="status_container"  id="new">
+                            <p class="status_stamp">New</p>
+                        </div>
+                    </div>
+                     <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 status_column">
+                        <div class="status_container" id="in_progress">
+                            <p class="status_stamp">In progress</p>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 status_column">
+                        <div class="status_container" id="review">
+                            <p class="status_stamp">Review</p>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 status_column">
+                        <div class="status_container"  id="done">
+                            <p class="status_stamp">Done</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script
+  src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+  integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+  crossorigin="anonymous">
+</script>
+<script  src="{{url_for('static', filename='trello.js')}}"></script>
 </body>
 </html>

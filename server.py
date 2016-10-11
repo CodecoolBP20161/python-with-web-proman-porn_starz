@@ -1,12 +1,12 @@
-from flask import Flask, render_template, redirect, url_for, request
+from flask import Flask, render_template, url_for
 
 app = Flask(__name__)
-app.config.from_object(__name__)
 
 
-@app.route('/', methods=['GET', 'POST'])
-def start():
-    return render_template('home.html')
+@app.route('/')
+def trello():
+    return render_template('trello.html')
 
-if '__main__' == __name__:
+
+if __name__ == '__main__':
     app.run(debug=True)
