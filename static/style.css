@@ -47,11 +47,13 @@ li {
 
 .status_column {
     padding: 10px;
+    height: 100%;
 }
 
 .status_container {
     background-color: white;
     min-height: 250px;
+    padding: 10px;
 }
 
 .header {

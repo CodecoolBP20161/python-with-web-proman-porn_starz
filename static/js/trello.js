@@ -1,4 +1,6 @@
 var dataManager = {
+    transferDestination: null,
+    transferValue: null,
     initApp: function() {
         if (localStorage.projects === undefined) {
             localStorage.setItem("projects", "[]")
@@ -10,10 +12,10 @@ var dataManager = {
             allData.push(name);
             localStorage.setItem("projects", JSON.stringify(allData));
             var container = {
-              new: '[]',
-              inProgress: '[]',
-              review: '[]',
-              done: '[]'
+              new: [],
+              inProgress: [],
+              review: [],
+              done: []
             }
             localStorage.setItem(name, JSON.stringify(container));
         }
@@ -33,17 +35,17 @@ var dataManager = {
     },
     addTicket: function(ticket, destination) {
         container = this.getBoard(display['status']);
-        var containerList = JSON.parse(container[destination]);
+        var containerList = container[destination];
         containerList.push(ticket);
-        container[destination] = JSON.stringify(containerList);
+        container[destination] = containerList;
         localStorage.setItem(display['status'], JSON.stringify(container));
     },
     removeTicket: function(ticket, place) {
       container = this.getBoard(display['status']);
-      var containerList = JSON.parse(container[place]);
+      var containerList = container[place];
       var index = containerList.indexOf(ticket);
       containerList.splice(index, 1);
-      container[place] = JSON.stringify(containerList);
+      container[place] = containerList;
       localStorage.setItem(display['status'], JSON.stringify(container));
     },
 };
@@ -73,7 +75,10 @@ var display = {
             $('.newwellbase').css({"display": "block"});
             $('.newwellcreate').css({"display": "none"});
             $('#stamptitle').html(this.status)
-            allNew = JSON.parse(allData['new']);
+            allNew = allData['new'];
+            allinp = allData['inProgress'];
+            allrev = allData['review'];
+            alldone = allData['done'];
             $('div').remove(".ticket");
             for (i in allNew) {
                 var ticket = $("<div class='well ticket'></div>");
@@ -81,6 +86,27 @@ var display = {
                 ticket.append($('<span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span>'));
                 var textPlace = ticket.append("<p class='ticketcontentplace'>"+allNew[i]+"</p>");
                 $('#new').append(ticket)
+            };
+            for (i in allinp) {
+                var ticket = $("<div class='well ticket'></div>");
+                ticket.attr("id", this.status + "/" + "inProgress" + "/" + allinp[i]);
+                ticket.append($('<span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span>'));
+                var textPlace = ticket.append("<p class='ticketcontentplace'>"+allinp[i]+"</p>");
+                $('#inProgress').append(ticket)
+            };
+            for (i in allrev) {
+                var ticket = $("<div class='well ticket'></div>");
+                ticket.attr("id", this.status + "/" + "review" + "/" + allrev[i]);
+                ticket.append($('<span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span>'));
+                var textPlace = ticket.append("<p class='ticketcontentplace'>"+allrev[i]+"</p>");
+                $('#review').append(ticket)
+            };
+            for (i in alldone) {
+                var ticket = $("<div class='well ticket'></div>");
+                ticket.attr("id", this.status + "/" + "done" + "/" + alldone[i]);
+                ticket.append($('<span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span>'));
+                var textPlace = ticket.append("<p class='ticketcontentplace'>"+alldone[i]+"</p>");
+                $('#done').append(ticket)
             };
             $('.ticket').attr("draggable","true");
         };
@@ -110,18 +136,26 @@ var display = {
         this.renderBoard();
         this.renderController();
         this.renderProjects();
+        this.columnBuilder();
     },
     columnBuilder: function() {
+        console.log(parseFloat($('#new').css('height')));
+        console.log(parseFloat($('#inProgress').css('height')));
+        console.log(parseFloat($('#review').css('height')));
+        console.log(parseFloat($('#done').css('height')));
         var height = Math.max(
              parseFloat($('#new').css('height')),
-             parseFloat($('#in_progress').css('height')),
+             parseFloat($('#inProgress').css('height')),
              parseFloat($('#review').css('height')),
              parseFloat($('#done').css('height'))
         );
-        $('#new').css("height", height+20);
-        $('#in_progress').css("height", height+20);
-        $('#review').css("height", height+20);
-        $('#done').css("height", height+20);
+        console.log(height);
+        $('.onboard_tickets').css("height", height+20);
+        // $('.status_container').css("height", height+40);
+        // $('#new').css("height", height+20);
+        // $('#inProgress').css("height", height+20);
+        // $('#review').css("height", height+20);
+        // $('#done').css("height", height+20);
     }
 };
 
@@ -171,18 +205,36 @@ $(document).ready(function(){
             display.render();
         }
     });
-    $('body').on('dragstart', '.ticket', function() {
-        dataManager.removeTicket(this.id.split("/")[2], this.id.split("/")[1]);
-    });
-    $('body').on('dragend', '.ticket', function() {
-        display.render();
-    });
-    $(".ticket").draggable();
-    $(".status_container").droppable({
-      over: function(event) {
-        console.log(1)
-      }
-    });
+})
+
+document.body.addEventListener("dragstart", function(event) {
+  dataManager["transferValue"] = event.target.childNodes[1].innerHTML;
+  event.target.childNodes[0].style.display = 'none';
+  console.log(event.target.parentNode.style.zIndex)
+  ticket = event.target.childNodes[1].innerHTML;
+  place = event.target.parentNode.id;
+  dataManager.removeTicket(ticket, place);
+})
+
+document.body.addEventListener("dragenter", function(event) {
+    if (event.target.className === 'status_container') {
+      dataManager["transferDestination"] = event.target.id;
+    }
+    else if (event.target.parentNode.className === 'status_container') {
+      dataManager["transferDestination"] = event.target.parentNode.id;
+    }
+    else {
+      dataManager["transferDestination"] = null;
+    }
+})
+
+document.body.addEventListener("dragend", function(event) {
+    if (["new", "inProgress", "review", "done"].indexOf(dataManager["transferDestination"]) >= 0) {
+      ticket = dataManager["transferValue"];
+      destination = dataManager["transferDestination"];
+      dataManager.addTicket(ticket, destination);
+    }
+    display.render()
 })
 
 dataManager.initApp();
@@ -193,5 +245,5 @@ display.render();
 //     url: "http://127.0.0.1:5000/",
 //     contentType: "application/json; charset=utf-8",
 //     dataType: "json",
-//     data: tosend
+//     data:
 // });
