@@ -65,6 +65,11 @@ var display = {
              buttonPlace.append(deleteButton)
              displayedProject.append(buttonPlace);
              $("#projects").append(displayedProject);
+             if (this.status == displayedProject.attr('value')) {
+                 displayedProject.css('background', '#6a6aba')
+                 displayedProject.css('color', "white")
+             }
+
          }
     },
     renderBoard: function() {
