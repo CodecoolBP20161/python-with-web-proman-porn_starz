@@ -50,7 +50,7 @@
                     <p class="newprojecttitle">New project's title:</p>
                     <div class="newprojecttitle"><input type="text" id="new_project" maxlength="20"></div>
                     <div class="newprojecttitle">
-                        <button type="button" class="btn btn-success btn-xs projectCreator" id='lofasz'>
+                        <button type="button" class="btn btn-success btn-xs projectCreator" id='creator'>
                             <span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span>
                             Create
                         </button>
@@ -81,7 +81,7 @@
                         </div>
                     </div>
                     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 header">
-                        <div class="well stampwell">
+                        <div class="well stampwell" id="stamptitlecontainer">
                             <p class="italics" id="stamptitle"></p>
                         </div>
                     </div>
@@ -119,6 +119,6 @@
   integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
   crossorigin="anonymous">
 </script>
-<script  src="{{url_for('static', filename='js/trello.js')}}"></script>
+<script  src="{{url_for('static', filename='js/script.js')}}"></script>
 </body>
 </html>

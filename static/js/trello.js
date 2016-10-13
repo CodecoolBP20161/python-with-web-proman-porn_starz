@@ -150,7 +150,7 @@ var display = {
              parseFloat($('#done').css('height'))
         );
         console.log(height);
-        $('.onboard_tickets').css("height", height+20);
+        // $('.onboard_tickets').css("height", height+20);
         // $('.status_container').css("height", height+40);
         // $('#new').css("height", height+20);
         // $('#inProgress').css("height", height+20);
@@ -210,7 +210,6 @@ $(document).ready(function(){
 document.body.addEventListener("dragstart", function(event) {
   dataManager["transferValue"] = event.target.childNodes[1].innerHTML;
   event.target.childNodes[0].style.display = 'none';
-  console.log(event.target.parentNode.style.zIndex)
   ticket = event.target.childNodes[1].innerHTML;
   place = event.target.parentNode.id;
   dataManager.removeTicket(ticket, place);

@@ -52,7 +52,7 @@ li {
 
 .status_container {
     background-color: white;
-    min-height: 250px;
+    min-height: 400px;
     padding: 10px;
 }
 
@@ -66,13 +66,19 @@ li {
     margin-bottom: 30px;
 }
 
+#stamptitlecontainer {
+    background-image: none;
+    background-color: gold;
+}
+
 .italics {
     font-style: italic;
     font-weight: bold;
 }
 
 .ticket {
-    margin: 10px;
+    margin: 5px;
+    font-weight: bold;
 }
 
 .on_board {
