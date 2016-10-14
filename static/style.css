@@ -121,3 +121,9 @@ li {
 .ticketcontentplace {
   margin-top: 20px;
 }
+
+.status_stamp{
+     font-style: italic;
+     font-weight: bold;
+     color: white;
+}
