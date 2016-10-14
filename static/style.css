@@ -79,6 +79,7 @@ li {
 .ticket {
     margin: 5px;
     font-weight: bold;
+    height: 120px;
 }
 
 .on_board {

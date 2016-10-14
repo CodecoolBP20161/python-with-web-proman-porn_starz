@@ -72,14 +72,14 @@ var displayHandler = {
         textPlace.className = "ticketcontentplace";
         var textInside = document.createTextNode(data[type][ticketNumber]);
         var signInside = document.createElement("SPAN");
-        signInside.className = "glyphicon glyphicon-pushpin"
+        signInside.className = "glyphicon glyphicon-pushpin";
         oneTicket.appendChild(signInside);
         textPlace.appendChild(textInside);
         oneTicket.appendChild(textPlace);
         oneTicket.className = "well ticket";
-        oneTicket.id = "draggable/" + data[type][ticketNumber]
+        oneTicket.id = "draggable/" + data[type][ticketNumber];
         oneTicket.draggable = "true";
-        textPlace.style.fontSize = this.setFontSize(data[type][ticketNumber])
+        textPlace.style.fontSize = this.setFontSize(data[type][ticketNumber]);
         ticketList.appendChild(oneTicket);
       };
     };
@@ -87,27 +87,48 @@ var displayHandler = {
   },
   setFontSize: function(content) {
     if (content.length > 15) {
-      return "0.7em"
+      return "0.4em"
     }
     else if (content.length < 10) {
-      return "1.3em"
+      return "1.0em"
     }
     else if (content.length < 6){
       return "1.7em"
     }
     else {
-      return "1em"
-    };
+      return "0.6em"
+    }
   },
   buildColumns: function() {
-
+    var newCol = $('#new');
+        var progress = $('#inProgress');
+        var review = $('#review');
+        var done = $('#done');
+        var height = Math.max(
+            newCol.children().length,
+            progress.children().length,
+            review.children().length,
+            done.children().length);
+         var statusColumnList = [ newCol, progress, review, done];
+        $.each(statusColumnList, function(element, index, arr) {
+            var length = $(this).children().length;
+            var diff = height - length;
+            for (var i = 0; i < diff; i++) {
+              var ticket = $("<div class='well ticket'></div>");
+              ticket.css({'opacity': 0});
+              ticket.append("<p class='ticketcontentplace'><br><br></p>");
+              $(this).append(ticket)
+            }
+        })
+    
   },
   render: function(data) {
     this.renderController(this["currentState"]);
     this.renderProjects(data["projects"]);
     this.renderBoard(data["tickets"]);
+    this.buildColumns();
   }
-}
+};
 
 
 var dataManager = {
@@ -119,10 +140,10 @@ var dataManager = {
     var data = {text: input, type: type, method: method};
     if (related != null) {
       data.related = related
-    };
+    }
     if (status != null) {
       data.status = status
-    };
+    }
     var request = new XMLHttpRequest();
     request.open("POST", "http://127.0.0.1:5000/api", true);
     request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
@@ -130,7 +151,7 @@ var dataManager = {
     request.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200 && renderIncluded == true) {
         displayHandler.render(JSON.parse(this.responseText))
-      };
+      }
     };
   },
   requestData: function(project) {
@@ -139,7 +160,7 @@ var dataManager = {
     request.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
         displayHandler.render(JSON.parse(this.responseText))
-      };
+      }
     };
     request.send()
   },
@@ -159,27 +180,27 @@ document.body.addEventListener("click", function(event) {
       dataManager.update(userInput, "project", "add");
       document.getElementById('new_project').value = "";
     }
-  };
+  }
   if (event.target.className == "list-group-item title oneproject") {
     project = dataManager.convertId(event.target.id);
     displayHandler.currentState = project;
     dataManager.requestData(project);
-  };
+  }
   if (event.target.parentNode.className == "list-group-item title oneproject") {
     project = dataManager.convertId(event.target.parentNode.id);
     displayHandler.currentState = project;
     dataManager.requestData(project);
-  };
+  }
   if (event.target.className == "well newwellbase") {
     displayHandler.currentState = "create";
     dataManager.requestData("noProjectInformationRequested");
-  };
+  }
   if (event.target.id == "newticket") {
     userInput = document.getElementById('newticketcontent').value;
     dataManager.update(userInput, "ticket", "add", displayHandler.currentState, "new");
     document.getElementById('newticketcontent').value = "";
-  };
-})
+  }
+});
 
 document.body.addEventListener("dragstart", function(event) {
   dataManager["transferValue"] = event.target.childNodes[1].innerHTML;
@@ -187,7 +208,7 @@ document.body.addEventListener("dragstart", function(event) {
   ticket = event.target.childNodes[1].innerHTML;
   place = event.target.parentNode.id;
   dataManager.update(ticket, "ticket", "delete", displayHandler.currentState, place, false);
-})
+});
 
 document.body.addEventListener("dragenter", function(event) {
     if (event.target.className === 'status_container') {
@@ -196,10 +217,13 @@ document.body.addEventListener("dragenter", function(event) {
     else if (event.target.parentNode.className === 'status_container') {
       dataManager["transferDestination"] = event.target.parentNode.id;
     }
+    else if (event.target.parentNode.parentNode.className === 'status_container') {
+      dataManager["transferDestination"] = event.target.parentNode.parentNode.id;
+    }
     else {
       dataManager["transferDestination"] = null;
     }
-})
+});
 
 document.body.addEventListener("dragend", function(event) {
     if (["new", "inProgress", "review", "done"].indexOf(dataManager["transferDestination"]) >= 0) {
@@ -210,7 +234,7 @@ document.body.addEventListener("dragend", function(event) {
     else {
       dataManager.requestData(displayHandler.currentState)
     }
-})
+});
 
 document.getElementById('newticketcontent').addEventListener("focus", function(event) {
     document.getElementById('newticketcontent').addEventListener("keyup", function(event) {
@@ -259,4 +283,4 @@ $(document).ready(function(){
   });
 });
 
-dataManager.requestData("noProjectInformationRequested")
+dataManager.requestData("noProjectInformationRequested");

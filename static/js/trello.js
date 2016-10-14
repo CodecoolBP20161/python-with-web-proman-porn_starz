@@ -227,6 +227,9 @@ document.body.addEventListener("dragenter", function(event) {
     else if (event.target.parentNode.className === 'status_container') {
       dataManager["transferDestination"] = event.target.parentNode.id;
     }
+    else if (event.target.parentNode.parentNode.className === 'status_container') {
+      dataManager["transferDestination"] = event.target.parentNode.id;
+    }
     else {
       dataManager["transferDestination"] = null;
     }
